@@ -7,7 +7,7 @@ const app = Vue.createApp({
     },
     mounted() {
       // Load data from JSON file
-      fetch('data.json')
+      fetch('data/data.json')
         .then(response => response.json())
         .then(data => {
           this.items = data;
