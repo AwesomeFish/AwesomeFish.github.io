@@ -53,6 +53,22 @@
 			</div>
 		  </div>
 		</div>
+		<!-- Form to add new items -->
+		<form @submit.prevent="addItem">
+			<div class="mb-3">
+			  <label for="name" class="form-label">Name</label>
+			  <input type="text" class="form-control" id="name" v-model="newItem.name" required>
+			</div>
+			<div class="mb-3">
+			  <label for="profilePicture" class="form-label">Profile Picture URL</label>
+			  <input type="url" class="form-control" id="profilePicture" v-model="newItem.profilePicture" required>
+			</div>
+			<div class="mb-3">
+			  <label for="description" class="form-label">Description</label>
+			  <textarea class="form-control" id="description" rows="3" v-model="newItem.description" required></textarea>
+			</div>
+			<button type="submit" class="btn btn-primary">Add Item</button>
+		  </form>
 	  </div>
 
 	<!-- Vue.js -->
