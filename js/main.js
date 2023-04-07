@@ -31,21 +31,13 @@ const app = Vue.createApp({
       };
       // Update JSON file
       const json = JSON.stringify(this.items, null, 2);
-      const json = JSON.stringify(this.items, null, 2);
-            fetch('data.json', {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: json
-            })
-              .then(response => {
-                console.log(response);
-                alert('Item added successfully!');
-              })
-              .catch(error => console.error(error));
-          }
-        }
-      });
+      fetch('data.json.then(() => {
+        // Show success message and reload page
+        alert('Item added successfully!');
+        location.reload();
+      })
+      .catch(error => console.error(error));
+  }
+});
 
-      app.mount('#app');
+app.mount('#app');
