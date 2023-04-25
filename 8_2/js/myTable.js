@@ -33,7 +33,7 @@
 				<tr v-for="students in getItems ">
 					<th :id="students.code" scope="row">{{ students.code }}</th>
 					<td :headers="students.code" scope="row">{{ students.desc }}</td>
-                    <td :headers="students.code" scope="row">{{ students.cp }}</th>
+                    <td :headers="students.code" scope="row">{{ students.cp }}</td>
 					<td :headers="students.code" scope="row">{{ students.type }}</td>
 				</tr>
 			</tbody>
