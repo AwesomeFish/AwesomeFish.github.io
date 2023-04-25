@@ -20,7 +20,7 @@
         },  
 		template: `
         <table class="table table-striped">
-			<caption>Student Marks</caption>
+			<caption>Unit Table</caption>
 			<thead>
 				<tr>
 					<th id="codeheader" scope="col">Code</th>
