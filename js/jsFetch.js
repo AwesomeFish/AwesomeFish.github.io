@@ -3,10 +3,27 @@ const app = Vue.createApp({	})
 		data: function(){
 			return  {err:'',fetch:''} 
 		},  
-		template: `	<div>
-		<ul><li v-for="m in fetch">{{m}}</li></ul>
-			<p>Error: {{err}}</p>
-		</div>`,
+		template: `
+		<div class="row" v-for="m in fetch">
+
+            <div class="col-md-auto">
+                  <p>{{ m.code }}</p>
+            </div>
+
+            <div class="col-md-auto">
+                <p>{{ m.desc }}</p>
+            </div>
+
+			<div class="col-md-auto">
+                <p>{{ m.cp }}</p>
+            </div>
+
+			<div class="col-md-auto">
+                <p>{{ m.type }}</p>
+			</div>
+
+      	</div>
+		<h2 v-if="err.length !=''">Error: {{err}}</h2>`,
 		
 		mounted() { 						//Called after the instance has been mounted
 			var self = this;
