@@ -22,7 +22,7 @@ const app = Vue.createApp({	})
 		
 		mounted() { 						//Called after the instance has been mounted
 			var self = this;
-			var url = '/data/units.json';
+			var url = '/7_2/data/units.json';
 
 			fetch(url).then( response =>{   //javascript fetch api  
 				return response.json( );	//turning the response into the usable data
