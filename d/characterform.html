@@ -28,6 +28,13 @@
 		.bi{
 			font-size: 24px;
 		}
+
+        .scrollable-menu {
+            height: auto;
+            max-height: 200px;
+            overflow-x: hidden;
+        }
+		
 	</style>
 	<body>
 		<div id="app" class="container">
@@ -81,6 +88,24 @@
 			<hr>
 			<div class="row">
 				<div class="col-4">
+					<h4>Mental</h4>
+					<div class="row mb-3">
+							<div class="col-4"><label class="form-label">Intelligence</label></div>
+							<div class="col-8"><span v-for="n in 5" :class="['dot', n <= Intelligence ? 'filled' : '']" @click="setRating(n, 'Intelligence')"><i class="bi bi-circle-fill p-1"></i></span></div>
+					</div>
+
+					<div class="row mb-3">
+							<div class="col-4"><label class="form-label">Wits</label></div>
+							<div class="col-8"><span v-for="n in 5" :class="['dot', n <= Wits ? 'filled' : '']" @click="setRating(n, 'Wits')"><i class="bi bi-circle-fill p-1"></i></span></div>
+					</div>
+
+					<div class="row mb-3">
+							<div class="col-4"><label class="form-label">Resolve</label></div>
+							<div class="col-8"><span v-for="n in 5" :class="['dot', n <= Resolve ? 'filled' : '']" @click="setRating(n, 'Resolve')"><i class="bi bi-circle-fill p-1"></i></span></div>
+					</div>
+
+				</div>
+				<div class="col-4">
 					<h4>Physical</h4>
 
 					<div class="row mb-3">
@@ -117,24 +142,6 @@
 					</div>
 				</div>
 
-				<div class="col-4">
-					<h4>Mental</h4>
-					<div class="row mb-3">
-							<div class="col-4"><label class="form-label">Intelligence</label></div>
-							<div class="col-8"><span v-for="n in 5" :class="['dot', n <= Intelligence ? 'filled' : '']" @click="setRating(n, 'Intelligence')"><i class="bi bi-circle-fill p-1"></i></span></div>
-					</div>
-
-					<div class="row mb-3">
-							<div class="col-4"><label class="form-label">Wits</label></div>
-							<div class="col-8"><span v-for="n in 5" :class="['dot', n <= Wits ? 'filled' : '']" @click="setRating(n, 'Wits')"><i class="bi bi-circle-fill p-1"></i></span></div>
-					</div>
-
-					<div class="row mb-3">
-							<div class="col-4"><label class="form-label">Resolve</label></div>
-							<div class="col-8"><span v-for="n in 5" :class="['dot', n <= Resolve ? 'filled' : '']" @click="setRating(n, 'Resolve')"><i class="bi bi-circle-fill p-1"></i></span></div>
-					</div>
-
-				</div>
 			</div>
 			<div class="row">
 				<div class="col-4"><h3>Skills</h3><hr></div>
@@ -209,8 +216,7 @@
 				</div>
 				<div class="col-4">
 					<h4>Merits</h4>
-					<div class="col-8"><app-meritdropdown></app-meritdropdown></div>
-						<div class="col-4"></div>
+					<app-meritdropdown></app-meritdropdown>
 				</div>
 				<div class="col-4">
 					<div class="row mb-3">
@@ -219,7 +225,7 @@
 							<span v-for="n in 12" :class="['dot', n <= Stamina+Size ? 'filled' : '']" ><i class="bi bi-circle-fill p-1"></i></span>
 						</div>
 						<div class="d-flex justify-content-evenly">
-							<span v-for="(state, index) in HealthStatus" :key="index" @click="cycleState(index)">
+							<span v-for="(state, index) in HealthStatus" @click="cycleState(index)">
 								<i :class="mappedStates[index]"></i>
 							  </span>
 						</div>
@@ -229,8 +235,8 @@
 								<span v-for="n in 12" :class="['dot', n <= Resolve+Composure ? 'filled' : '']" ><i class="bi bi-circle-fill p-1"></i></span>
 							</div>
 							<div class="d-flex justify-content-evenly">
-								<span v-for="(state, index) in WillpowerStatus" :key="index" @click="WillpowerStatus[index] = !WillpowerStatus[index]">
-									<i :class="state ? 'bi bi-square-fill' : 'bi bi-square'"></i>
+								<span v-for="(state, index) in WillpowerStatus" @click="WillpowerStatus[index] = !WillpowerStatus[index]">
+									<i :class="state ? 'bi bi-square-fill p-1' : 'bi bi-square p-1'"></i>
 								  </span>
 							</div>
 						</div>
@@ -492,7 +498,7 @@
 							break;
 						} 
 					},
-					cycleState(index) {
+					cycleState: function(index) {
 						if (this.HealthStatus[index] === 0) {
 							this.HealthStatus[index] = 1;
 						} else if (this.HealthStatus[index] === 1) {
@@ -508,18 +514,90 @@
 			app.component('app-meritdropdown', {
 				data: function() {
 					return {
-						meritsJSON: []
+						merits: [],
+						meritsJSON: [],
+						isPopupVisible: false,
 					}
 				},
-				template: `	
-				<div class="dropdown">
-  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> Select Merit </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <li v-for="merit in meritsJSON">
-      <a class="dropdown-item" href="#">{{ merit.Rating }} - {{ merit.Merit }}</a>
-    </li>
-  </ul>
-</div>`,
+				template: `
+                <div class="row mb-3">
+					<div class="dropdown">
+						<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> Select Merit </button>
+						<ul class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+							<li v-for="merit in meritsJSON">
+								<a class="dropdown-item" href="#" @click.prevent="addMerit(merit)">{{ merit.Rating }} - {{ merit.Merit }}</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="row mb-3" v-for="listMerit in merits">
+					<div class="col-4">{{listMerit.Merit}}</div>
+					<div class="col-6">
+						<span v-if="listMerit.Rating.toLowerCase().indexOf('o') === -1 " v-for="n in 5" :class="['dot', n <= listMerit.Value ? 'filled' : '']">
+							<i class="bi bi-circle-fill p-1"></i>
+						</span>
+						<span v-else-if="listMerit.Rating.toLowerCase().indexOf(' to ') != -1 " v-for="n in 5" :class="['dot', n <= listMerit.Value ? 'filled' : '']" @click="rangedMerit(n, listMerit)">
+							<i class="bi bi-circle-fill p-1"></i>
+						</span>
+						<span v-else-if="listMerit.Rating.toLowerCase().indexOf(' or ') != -1 " v-for="n in 5" :class="['dot', n <= listMerit.Value ? 'filled' : '']" @click="uniqueMerit(n, listMerit)">
+							<i class="bi bi-circle-fill p-1"></i>
+						</span>
+					</div>
+					<div class="col-2">Info</div>
+				</div>
+				`,
+				methods: {
+					addMerit: function(merit) {
+                        event.preventDefault();
+						if(merit.Rating.toLowerCase().indexOf('o') === -1){
+							merit.Value = merit.Rating.length;
+							console.log(merit.Value);
+						}
+						else if(merit.Rating.toLowerCase().indexOf(' to ') != -1 ){
+							this.rangedMerit(0, merit);
+						}
+						else{
+							this.uniqueMerit(0, merit);
+						}
+					    this.merits.push(merit);
+					    console.log(this.merits);
+					},
+                    rangedMerit: function(n, merit){
+                        if(n >= merit.Rating.split(' to ')[1].length){
+                            merit.Value = merit.Rating.split(' to ')[1].length;
+                        }
+                        else if(n<= merit.Rating.split(' to ')[0].length){
+                            merit.Value = merit.Rating.split(' to ')[0].length
+                        }
+                        else{
+                            merit.Value = n;
+                        }
+                        console.log(merit.Value);
+                    },
+					uniqueMerit: function(n, merit){
+						var levels = merit.Rating.split(/(?:,\s|\sor\s)/);
+						if(n == 0){
+							merit.Value = levels[0].length;
+						}
+
+						levels.forEach(function(item){
+							if(item.length === n){
+								merit.Value = n;
+							}
+						})
+						console.log(merit.Value);
+                    },
+					showPopup: function(levels) {
+						popupMessage = "This merit can only be the following: "
+						levels.forEach(function(item){
+							popupMessage += item + ", ";
+						})
+						this.isPopupVisible = true;
+						setTimeout(() => {
+							this.isPopupVisible = false;
+						}, 3000);
+    				},
+				},
 				mounted() {
 					var self = this;
 					getPageData("Merits,_Universal_(1st_Edition)", self);
