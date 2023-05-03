@@ -30,6 +30,9 @@
 			max-height: 200px;
 			overflow-x: hidden;
 		}
+		.bi-trash{
+			color: #6c757d;
+		}
 	</style>
 	<body>
 		<div id="app" class="container">
@@ -145,56 +148,56 @@
 						<div class="col-4"><label class="form-label">Academics</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Academics ? 'filled' : '']" @click="setRating(n, 'Academics')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Academics')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Academics')"></i>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-4"><label class="form-label">Computer</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Computer ? 'filled' : '']" @click="setRating(n, 'Computer')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Computer')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Computer')"></i>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-4"><label class="form-label">Crafts</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Crafts ? 'filled' : '']" @click="setRating(n, 'Crafts')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Crafts')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Crafts')"></i>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-4"><label class="form-label">Investigation</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Investigation ? 'filled' : '']" @click="setRating(n, 'Investigation')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Investigation')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Investigation')"></i>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-4"><label class="form-label">Medicine</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Medicine ? 'filled' : '']" @click="setRating(n, 'Medicine')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Medicine')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Medicine')"></i>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-4"><label class="form-label">Occult</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Occult ? 'filled' : '']" @click="setRating(n, 'Occult')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Occult')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Occult')"></i>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-4"><label class="form-label">Politics</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Politics ? 'filled' : '']" @click="setRating(n, 'Politics')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Politics')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Politics')"></i>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-4"><label class="form-label">Science</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Science ? 'filled' : '']" @click="setRating(n, 'Science')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Science')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Science')"></i>
 						</div>
 					</div>
 					<h4>Physical <small class="text-muted">(-1 Unskilled)</small></h4>
@@ -202,56 +205,56 @@
 						<div class="col-4"><label class="form-label">Athletics</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Athletics ? 'filled' : '']" @click="setRating(n, 'Athletics')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Athletics')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Athletics')"></i>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-4"><label class="form-label">Brawl</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Brawl ? 'filled' : '']" @click="setRating(n, 'Brawl')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Brawl')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Brawl')"></i>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-4"><label class="form-label">Drive</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Drive ? 'filled' : '']" @click="setRating(n, 'Drive')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Drive')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Drive')"></i>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-4"><label class="form-label">Firearms</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Firearms ? 'filled' : '']" @click="setRating(n, 'Firearms')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Firearms')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Firearms')"></i>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-4"><label class="form-label">Larceny</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Larceny ? 'filled' : '']" @click="setRating(n, 'Larceny')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Larceny')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Larceny')"></i>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-4"><label class="form-label">Stealth</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Stealth ? 'filled' : '']" @click="setRating(n, 'Stealth')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Stealth')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Stealth')"></i>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-4"><label class="form-label">Survival</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Survival ? 'filled' : '']" @click="setRating(n, 'Survival')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Survival')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Survival')"></i>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-4"><label class="form-label">Weaponry</label></div>
 						<div class="col-8">
 							<span v-for="n in 5" :class="['dot', n <= Weaponry ? 'filled' : '']" @click="setRating(n, 'Weaponry')"><i class="bi bi-circle-fill p-1"></i></span>
-							<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Weaponry')">Reset</button>
+							<i class="bi bi-trash p-1" @click="resetRating('Weaponry')"></i>
 						</div>
 					</div>
 					<h4>Social <small class="text-muted">(-1 Unskilled)</small></h4>
@@ -259,56 +262,56 @@
 							<div class="col-4"><label class="form-label">Animal Ken</label></div>
 							<div class="col-8">
 								<span v-for="n in 5" :class="['dot', n <= AnimalKen ? 'filled' : '']" @click="setRating(n, 'AnimalKen')"><i class="bi bi-circle-fill p-1"></i></span>
-								<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('AnimalKen')">Reset</button>
+								<i class="bi bi-trash p-1" @click="resetRating('AnimalKen')"></i>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<div class="col-4"><label class="form-label">Empathy</label></div>
 							<div class="col-8">
 								<span v-for="n in 5" :class="['dot', n <= Empathy ? 'filled' : '']" @click="setRating(n, 'Empathy')"><i class="bi bi-circle-fill p-1"></i></span>
-								<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Empathy')">Reset</button>
+								<i class="bi bi-trash p-1" @click="resetRating('Empathy')"></i>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<div class="col-4"><label class="form-label">Expression</label></div>
 							<div class="col-8">
 								<span v-for="n in 5" :class="['dot', n <= Expression ? 'filled' : '']" @click="setRating(n, 'Expression')"><i class="bi bi-circle-fill p-1"></i></span>
-								<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Expression')">Reset</button>
+								<i class="bi bi-trash p-1" @click="resetRating('Expression')"></i>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<div class="col-4"><label class="form-label">Intimidation</label></div>
 							<div class="col-8">
 								<span v-for="n in 5" :class="['dot', n <= Intimidation ? 'filled' : '']" @click="setRating(n, 'Intimidation')"><i class="bi bi-circle-fill p-1"></i></span>
-								<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Intimidation')">Reset</button>
+								<i class="bi bi-trash p-1" @click="resetRating('Intimidation')"></i>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<div class="col-4"><label class="form-label">Persuasion</label></div>
 							<div class="col-8">
 								<span v-for="n in 5" :class="['dot', n <= Persuasion ? 'filled' : '']" @click="setRating(n, 'Persuasion')"><i class="bi bi-circle-fill p-1"></i></span>
-								<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Persuasion')">Reset</button>
+								<i class="bi bi-trash p-1" @click="resetRating('Persuasion')"></i>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<div class="col-4"><label class="form-label">Socialize</label></div>
 							<div class="col-8">
 								<span v-for="n in 5" :class="['dot', n <= Socialize ? 'filled' : '']" @click="setRating(n, 'Socialize')"><i class="bi bi-circle-fill p-1"></i></span>
-								<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Socialize')">Reset</button>
+								<i class="bi bi-trash p-1" @click="resetRating('Socialize')"></i>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<div class="col-4"><label class="form-label">Streetwise</label></div>
 							<div class="col-8">
 								<span v-for="n in 5" :class="['dot', n <= Streetwise ? 'filled' : '']" @click="setRating(n, 'Streetwise')"><i class="bi bi-circle-fill p-1"></i></span>
-								<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Streetwise')">Reset</button>
+								<i class="bi bi-trash p-1" @click="resetRating('Streetwise')"></i>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<div class="col-4"><label class="form-label">Subterfuge</label></div>
 							<div class="col-8">
 								<span v-for="n in 5" :class="['dot', n <= Subterfuge ? 'filled' : '']" @click="setRating(n, 'Subterfuge')"><i class="bi bi-circle-fill p-1"></i></span>
-								<button type="button" class="btn btn-secondary btn-sm" @click="resetRating('Subterfuge')">Reset</button>
+								<i class="bi bi-trash p-1" @click="resetRating('Subterfuge')"></i>
 							</div>
 						</div>
 					</div>
