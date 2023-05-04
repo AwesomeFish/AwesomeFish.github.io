@@ -41,43 +41,59 @@
 				<div class="col-4">
 					<div class="row mb-3">
 						<label class="form-label">Name</label>
-						<input type="text" class="form-control" name="name">
+						<input type="text" class="form-control" name="Name" id="Name" v-model="Name">
 					</div>
 					<div class="row mb-3">
-						<label class="form-label">Age</label>
-						<input type="number" class="form-control" name="age">
+						<label class="form-label">Age<span v-if="Age <= 15">🤔🤔🤔</span><span v-if="Age <= 10"> ?!?!?!?!!?</span></label>
+						<input type="number" class="form-control" name="age" id="age" v-model="Age" min="1" max="9999">
 					</div>
 					<div class="row mb-3">
 						<label class="form-label">Player</label>
-						<input type="text" class="form-control" name="player">
+						<input type="text" class="form-control" name="player" id="player" v-model="Player">
 					</div>
 				</div>
 				<div class="col-4">
 					<div class="row mb-3">
 						<label class="form-label">Virtue</label>
-						<input type="text" class="form-control" name="virtue">
+							<select class="form-select" name="virtue" id="virtue" v-model="Virtue">
+							  <option value="Charity">Charity</option>
+							  <option value="Faith">Faith</option>
+							  <option value="Fortitude">Fortitude</option>
+							  <option value="Hope">Hope</option>
+							  <option value="Justice">Justice</option>
+							  <option value="Prudence">Prudence</option>
+							  <option value="Temperance">Temperance</option>
+							</select>
 					</div>
 					<div class="row mb-3">
 						<label class="form-label">Vice</label>
-						<input type="text" class="form-control" name="vice">
+						<select class="form-select" name="vice" id="vice" v-model="Vice">
+							<option value="Envy">Envy</option>
+							<option value="Gluttony">Gluttony</option>
+							<option value="Greed">Greed</option>
+							<option value="Lust">Lust</option>
+							<option value="Pride">Pride</option>
+							<option value="Sloth">Sloth</option>
+							<option value="Wrath">Wrath</option>
+						  </select>
 					</div>
 					<div class="row mb-3">
 						<label class="form-label">Concept</label>
-						<input type="text" class="form-control" name="concept">
+						<input type="text" class="form-control" name="concept" id="concept" v-model="Concept">
 					</div>
 				</div>
 				<div class="col-4">
 					<div class="row mb-3">
 						<label class="form-label">Chronicle</label>
-						<input type="text" class="form-control" name="chronicle">
+						<input type="text" class="form-control" name="chronicle" id="chronicle" v-model="Chronicle">
 					</div>
 					<div class="row mb-3">
 						<label class="form-label">Faction</label>
-						<input type="text" class="form-control" name="faction">
+						<input type="text" class="form-control" name="faction" id="faction" v-model="Faction">
 					</div>
 					<div class="row mb-3">
 						<label class="form-label">Group Name</label>
-						<input type="text" class="form-control" name="group_name">
+						<input type="text" class="form-control" name="group" id="group" v-model="Group">
 					</div>
 				</div>
 			</div>
@@ -316,35 +332,131 @@
 						</div>
 					</div>
 				<div class="col-4">
+					<div class="row mb-3">
 					<h4>Merits</h4>
-					<app-meritdropdown></app-meritdropdown>
+						<select class="form-select scrollable-menu" name="merits" id="merits">
+							<option selected>Select a merit</option>
+							<option v-for="merit in meritsJSON"  @click="addElement(merit, 'merits','Merit')">{{ merit.Rating }} - {{ merit.Merit }}</option>
+						</select>
+					</div>
+					<div class="row mb-3" v-for="listMerit in merits">
+						<div class="col-4">{{listMerit.Merit}}</div>
+						<div class="col-6">
+							<span v-if="listMerit.Rating.toLowerCase().indexOf('o') === -1 " v-for="n in 5" :class="['dot', n <= listMerit.Value ? 'filled' : ''] ">
+								<i class="bi bi-circle-fill p-1"></i>
+							</span>
+							<span v-else-if="listMerit.Rating.toLowerCase().indexOf(' to ') != -1 " v-for="n in 5" :class="['dot', n <= listMerit.Value ? 'filled' : '']" @click="rangedMerit(n, listMerit)">
+								<i class="bi bi-circle-fill p-1"></i>
+							</span>
+							<span v-else-if="listMerit.Rating.toLowerCase().indexOf(' or ') != -1 " v-for="n in 5" :class="['dot', n <= listMerit.Value ? 'filled' : '']" @click="uniqueMerit(n, listMerit)">
+								<i class="bi bi-circle-fill p-1"></i>
+							</span>
+							<i class="bi bi-trash p-1" @click="removeElement(listMerit, 'merits','Merit')"></i>
+						</div>
+						<div class="col-2">Info</div>
+					</div>
+					<hr>
+					<div class="row mb-3">
+						<div class="row mb-3">
+							<h4>Flaws</h4>
+								<select class="form-select scrollable-menu" name="flaws" id="flaws">
+									<option selected>Select a flaw</option>
+									<option v-for="flaw in flawsJSON" @click="addElement(flaw, 'flaws','Physical')">{{ flaw.Physical }}</option>
+								</select>
+							</div>
+					</div>
+					<div class="row mb-3" v-for="listFlaw in flaws">
+						<div class="col-8">{{ listFlaw.Physical }} </div>
+						<div class="col-2"><i class="bi bi-trash p-1" @click="removeElement(listFlaw, 'flaws', 'Physical')"></i></div>
+						<div class="col-2">Info</div>
+					</div>
+					<hr>
+
 				</div>
 				<div class="col-4">
 					<div class="row mb-3">
-						<h4>Health</h4>
-						<div class="d-flex">
+						<h4 class="text-center">Health</h4>
+						<div class="d-flex justify-content-center">
 							<span v-for="n in 12" :class="['dot', n <= Stamina+Size ? 'filled' : '']" ><i class="bi bi-circle-fill p-1"></i></span>
 						</div>
-						<div class="d-flex">
+						<div class="d-flex justify-content-center">
 							<span v-for="(state, index) in HealthStatus" @click="cycleState(index)">
 							<i :class="mappedStates[index]"></i>
 							</span>
 						</div>
+					</div>
 						<div class="row mb-3">
-							<h4>Willpower</h4>
-							<div class="d-flex">
+							<h4 class="text-center">Willpower</h4>
+							<div class="d-flex justify-content-center">
 								<span v-for="n in 10" :class="['dot', n <= Resolve+Composure ? 'filled' : '']" ><i class="bi bi-circle-fill p-1"></i></span>
 							</div>
-							<div class="d-flex">
+							<div class="d-flex justify-content-center">
 								<span v-for="(state, index) in WillpowerStatus" @click="WillpowerStatus[index] = !WillpowerStatus[index]">
 								<i :class="state ? 'bi bi-square-fill p-1' : 'bi bi-square p-1'"></i>
 								</span>
 							</div>
 						</div>
+						<div class="row mb-3">
+							<h4 class="text-center">Morality</h4>
+							<div class="d-flex justify-content-center">
+								<span v-for="n in 10" :class="['dot', n <= Morality ? 'filled' : '']" @click="setRating(n, 'Morality')"><i class="bi bi-circle-fill p-1"></i></span>
+							</div>
+						</div>
+						<hr>
+					<div class="row mb-3">
+						<div class="row mb-3">
+							<h4>Derangements</h4>
+								<select class="form-select scrollable-menu" name="derange" id="derange">
+									<option selected>Select a derangement</option>
+									<option v-for="derange in derangementJSON" @click="addElement(derange,'derangements','Derangement')">{{ derange.Derangement }}</option>
+								</select>
+							</div>
+					</div>
+					<div class="row mb-3" v-for="listDerange in derangements">
+						<div class="col-8">{{ listDerange.Derangement }} </div>
+						<div class="col-2"><i class="bi bi-trash p-1" @click="removeElement(listDerange, 'derangements','Derangement')"></i></div>
+						<div class="col-2">Info</div>
+					</div>
+					<hr>
+					<div class="row mb-3">
+						<div class="col-4"><label class="form-label">Size:</label></div>
+						<div class="col-8">{{Size}}</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-4"><label class="form-label">Speed:</label></div>
+						<div class="col-8"><p>{{Strength+Dexterity+5}}</p></div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-4"><label class="form-label">Defense:</label></div>
+						<div class="col-8">
+							<p v-if="Wits < Dexterity">{{ Wits }}</p>
+							<p v-else>{{ Dexterity }}</p></div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-4"><label class="form-label">Initiative:</label></div>
+						<div class="col-8"><p>{{Dexterity+Composure}}</p></div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-4"><label class="form-label">Experience:</label></div>
+						<div class="col-8"><input type="number" class="form-control" name="experience" id="experience" v-model="Experience" min="0"></div>
 					</div>
 				</div>
 			</div>
+					<!-- Modal -->
+					<div class="modal fade sm" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								{{errorMsg}}
+							</div>
+							</div>
+						</div>
+					</div>
 		</div>
+
 		<div id="jsonTemp"></div>
 		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 		<script src="https://unpkg.com/vue-router@4"></script>
@@ -353,15 +465,20 @@
 		<script src="https://cdn.jsdelivr.net/npm/table-to-json@1.0.0/lib/jquery.tabletojson.min.js" integrity="sha256-H8xrCe0tZFi/C2CgxkmiGksqVaxhW0PFcUKZJZo1yNU=" crossorigin="anonymous"></script>
 		<!-- Linked to CDN (content delivery network) for easy distribution. You can download these libraries to your own computer and link to them -->
 		<script>
-			function getPageData(search, self) {
+			function getPageData(search, self, json) {
 				$.getJSON("https://codexofdarkness.com/mediawiki/api.php?action=parse&format=json&prop=text&origin=*&page=" + search, function(data) {
 					
 					var markup = data.parse.text["*"]; 								//Parse API call
-					markup = markup.substring(0, markup.indexOf('Notation Legend'))	//Clean data by removing other table
-					$('#jsonTemp').html(markup); 									//Temporarily append API data to html
-					self.meritsJSON = $('table').tableToJSON(); 					//Use tableToJSON(); plugin 
-					$('#jsonTemp').html(''); 										//Remove the API data from page
 
+					if(markup.includes('Notation Legend')){
+						markup = markup.substring(0, markup.indexOf('Notation Legend'))	//Clean data by removing other table
+					}
+
+					$('#jsonTemp').html(markup); 									//Temporarily append API data to html
+					var jsonData = $('table').tableToJSON(); 						//Use tableToJSON(); plugin 
+					$('#jsonTemp').html(''); 										//Remove the API data from page
+					self[json] = jsonData;
+					console.log(self[json]);
 				});
 			}
 			const app = Vue.createApp({
@@ -414,13 +531,22 @@
 						Streetwise: -1,
 						Subterfuge: -1,
 						SocialSpecialties: [],
+						Experience: 0,
 						Merits: [],
 						HealthStatus: [0,0,0,0,0,0,0,0,0,0,0,0],
 						WillpowerStatus: [false,false,false,false,false,false,false,false,false,false],
+						merits: [],
+						meritsJSON: [],
+						flaws: [],
+						flawsJSON: [],
+						derangements:[],
+						derangementJSON:[],
+						errorMsg: "",
+						errors: false
 					}
 				},
 				computed: {
-			 				mappedStates() {
+			 		mappedStates() {
 						return this.HealthStatus.map((state) => {
 							if (state === 0) {
 							return "bi bi-square p-1";
@@ -433,7 +559,7 @@
 							}
 						});
 					}
-			 			},
+			 	},
 				methods: {
 					setRating: function(n, variable) {
 						this[variable] = n;
@@ -467,103 +593,49 @@
 						} else {
 							this.HealthStatus[index] = 0;
 						}
-					}
-				}
-			})
-			app.component('app-meritdropdown', {
-				data: function() {
-					return {
-						merits: [],
-						meritsJSON: [],
-						errorMsg: "",
-						errors: false
-					}
-				},
-				template: `
-			             <div class="row mb-3">
-					<div class="dropdown">
-						<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> Select Merit </button>
-						<ul class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
-							<li v-for="merit in meritsJSON">
-								<a class="dropdown-item" href="#" @click.prevent="addMerit(merit)">{{ merit.Rating }} - {{ merit.Merit }}</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="row mb-3" v-for="listMerit in merits">
-					<div class="col-4">{{listMerit.Merit}}</div>
-					<div class="col-6">
-						<span v-if="listMerit.Rating.toLowerCase().indexOf('o') === -1 " v-for="n in 5" :class="['dot', n <= listMerit.Value ? 'filled' : ''] ">
-							<i class="bi bi-circle-fill p-1"></i>
-						</span>
-						<span v-else-if="listMerit.Rating.toLowerCase().indexOf(' to ') != -1 " v-for="n in 5" :class="['dot', n <= listMerit.Value ? 'filled' : '']" @click="rangedMerit(n, listMerit)">
-							<i class="bi bi-circle-fill p-1"></i>
-						</span>
-						<span v-else-if="listMerit.Rating.toLowerCase().indexOf(' or ') != -1 " v-for="n in 5" :class="['dot', n <= listMerit.Value ? 'filled' : '']" @click="uniqueMerit(n, listMerit)">
-							<i class="bi bi-circle-fill p-1"></i>
-						</span>
-						<i class="bi bi-trash p-1" @click="removeMerit(listMerit)"></i>
-					</div>
-					<div class="col-2">Info</div>
-					
-				</div>
-				<!-- Modal -->
-		<div class="modal fade sm" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					{{errorMsg}}
-				</div>
-				</div>
-			</div>
-		</div>
-				`,
-				methods: {
+					},
 					showErrors: function(msg){
 						this.errorMsg = msg;
 						var errorModal = new bootstrap.Modal(document.getElementById('errorModal'), {});
 						errorModal.show();
 					},
-					removeMerit: function(merit){
-						for (let i = 0; i < this.merits.length; i++) {
-							if(this.merits[i].Merit == merit.Merit){
-								delete this.merits.splice(i, 1);
+					removeElement: function(element, type, name){
+						for (let i = 0; i < this[type].length; i++) {
+							if(this[type][i][name] == element[name]){
+								delete this[type].splice(i, 1);
 							}
 						} 
 					},
-					addMerit: function(merit) {
+					addElement: function(element, type, name){
 						this.errorMsg = "";
 						this.errors = false;
-						event.preventDefault();
 
-						for (let i = 0; i < this.merits.length; i++) {
-							if(this.merits[i].Merit == merit.Merit){
+						for (let i = 0; i < this[type].length; i++) {
+							if(this[type][i][name] == element[name]){
 								this.errors = true;
 							}
-						} 
+						}
 						if(this.errors){
-							this.showErrors("The merit ["+merit.Merit+"] already exists.")
+							this.showErrors(element[name] + " already exists in the character sheet.")
 						}
 						else{
-							if(merit.Rating.toLowerCase().indexOf('o') === -1){
-								merit.Value = merit.Rating.length;
-								console.log(merit.Value);
+							if(type == 'merits'){
+								if(element.Rating.toLowerCase().indexOf('o') === -1){
+									element.Value = element.Rating.length;
+									console.log(element.Value);
+								}
+								else if(element.Rating.toLowerCase().indexOf(' to ') != -1 ){
+									this.rangedMerit(0, element);
+								}
+								else{
+									this.uniqueMerit(0, element);
+								}
 							}
-							else if(merit.Rating.toLowerCase().indexOf(' to ') != -1 ){
-								this.rangedMerit(0, merit);
-							}
-							else{
-								this.uniqueMerit(0, merit);
-							}
-						
-							this.merits.push(merit);
-							console.log(this.merits);
-						}
+							
+							this[type].push(element);
+							console.log(this[type]);
+						} 
 					},
-
 			        rangedMerit: function(n, merit){
 			            if(n >= merit.Rating.split(' to ')[1].length){
 			                merit.Value = merit.Rating.split(' to ')[1].length;
@@ -590,13 +662,16 @@
 						})
 
 						console.log(merit.Value);
-			        },
+			        }
 				},
 				mounted() {
 					var self = this;
-					getPageData("Merits,_Universal_(1st_Edition)", self);
-				},
+					getPageData("Merits,_Universal_(1st_Edition)", self, "meritsJSON");
+					getPageData("Flaws_(1st_Edition)", self, "flawsJSON");
+					getPageData("Derangements_(1st_Edition)", self, "derangementJSON");
+				}
 			})
+
 			app.mount('#app')
 		</script>
 	</body>
