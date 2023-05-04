@@ -356,15 +356,13 @@
 						<div class="col-2">Info</div>
 					</div>
 					<hr>
-					<div class="row mb-3">
 						<div class="row mb-3">
 							<h4>Flaws</h4>
 								<select class="form-select scrollable-menu" name="flaws" id="flaws">
 									<option selected>Select a flaw</option>
 									<option v-for="flaw in flawsJSON" @click="addElement(flaw, 'flaws','Physical')">{{ flaw.Physical }}</option>
 								</select>
-							</div>
-					</div>
+						</div>
 					<div class="row mb-3" v-for="listFlaw in flaws">
 						<div class="col-8">{{ listFlaw.Physical }} </div>
 						<div class="col-2"><i class="bi bi-trash p-1" @click="removeElement(listFlaw, 'flaws', 'Physical')"></i></div>
